@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Authentication</title>
+</head>
+<body>
+  <h1>Welcome to the Authentication Page</h1>
+  <p>Please enter your key below:</p>
+  <input type="text" id="keyInput" placeholder="Enter your key">
+  <button onclick="verifyKey()">Verify Key</button>
+  <p id="result"></p>
+
+  <script>
+    function verifyKey() {
+      const key = document.getElementById("keyInput").value;
+      fetch(`/verify?key=${key}`)
+        .then(response => response.json())
+        .then(data => {
+          const resultElement = document.getElementById("result");
+          if (data.status === "ok") {
+            resultElement.textContent = "Authentication successful!";
+          } else {
+            resultElement.textContent = "Authentication failed.";
+          }
+        });
+    }
+  </script>
+</body>
+</html>
